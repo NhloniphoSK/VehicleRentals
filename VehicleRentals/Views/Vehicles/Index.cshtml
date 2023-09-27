@@ -1,0 +1,93 @@
+﻿@model IEnumerable<VehicleRentals.Models.Vehicle>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Vehicles</h2>
+
+<p>
+    @Html.ActionLink("Add New Vehicle", "Create", null, new { @class = "btn btn-primary" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.VehicleRegistration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VIN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Make)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Model)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Year)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Color)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VehicleStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RentalFee)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BranchId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SupplierId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.VehicleRegistration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VIN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Make)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Model)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Year)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Color)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PurchaseDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VehicleStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RentalFee)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BranchId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SupplierId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.VehicleId }, new { @class = "btn btn-warning" }) |
+            @Html.ActionLink("Details", "Details", new { id=item.VehicleId }, new { @class = "btn btn-primary" }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.VehicleId }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

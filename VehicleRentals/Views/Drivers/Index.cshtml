@@ -1,0 +1,63 @@
+﻿@model IEnumerable<VehicleRentals.Models.Driver>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>New Driver</h2>
+
+<p>
+    @Html.ActionLink("Create New Driver", "Create", null, new { @class = "btn btn.primary" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Surname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateofBirth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Booked)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Surname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateofBirth)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Booked)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DriverId }, new { @class = "btn btn-warning" }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DriverId }, new { @class = "btn btn-primary" }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DriverId }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

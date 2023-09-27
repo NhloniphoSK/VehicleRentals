@@ -1,0 +1,105 @@
+﻿@model VehicleRentals.Models.Vehicle
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Vehicle Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.VehicleRegistration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VehicleRegistration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VIN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VIN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Make)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Make)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Model)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Model)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Color)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PurchaseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PurchaseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VehicleStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VehicleStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RentalFee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RentalFee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BranchId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BranchId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SupplierId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SupplierId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.VehicleId }, new { @class = "btn btn-warning" }) |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+</p>

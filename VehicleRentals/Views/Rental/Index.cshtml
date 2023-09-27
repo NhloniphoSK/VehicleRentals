@@ -1,0 +1,205 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@model IEnumerable<VehicleRentals.Models.RentalViewModel>
+<div class="row">
+    <div class="col-sm-4">
+        @using (Html.BeginForm("SaveRental", "Rental", FormMethod.Post))
+        {
+            <div>
+                <h1>Rent A Vehicle</h1>
+            </div>
+            <div>
+                <div class="form-group">
+                    <label class="form-label">Vehicle Id</label>
+                    <select class="form-control" id="VehicleId" name="vehicleId" placeholder="Vehicle Id" required>
+                        <option>Please select</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Client Id</label>
+                    <input type="text" id="clientId" name="clientId" class="form-control" placeholder="Client Id" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Client Name</label>
+                    <input type="text" id="clientName" name="clientName" class="form-control" placeholder="Client Name" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Driver Name</label>
+                    <select class="form-control" id="driverId" name="driverId" placeholder="Driver Name" required>
+                        <option>Please select</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Pick Up Date</label>
+                    <input type="date" id="pickUpDate" name="pickUpDate" class="form-control" placeholder="Pick Up Date" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Drop Up Date</label>
+                    <input type="date" id="dropUpDate" name="dropUpDate" class="form-control" placeholder="Drop Up Date" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Price</label>
+                    <input type="text" id="price" name="price" class="form-control" placeholder="Rental Price" required />
+                </div>
+
+                <input type="submit" value="Save" class="btn btn-success" onclick="SaveRental()" />
+            </div>
+        }
+    </div>
+    @*Table display*@
+    <div class="col-sm-8">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ClientId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DriverId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VehicleId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PickUpDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DropOffDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VehicleStatus)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClientId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DriverId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VehicleId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PickUpDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DropOffDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VehicleStatus)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary" }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+
+    @section scripts
+{
+
+        <script src="~/Scripts/jquery-3.4.1.js"></script>
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+        <script src="~/Scripts/jquery.validate.js"></script>
+
+        <script>
+            getVehicles();
+            getDrivers();
+            getClients();
+
+            //Get list of vehicles
+            function getVehicles() {
+                $.ajax({
+                    type: "GET",
+                    url: '/Rental/GetVehicles',
+                    dataType: 'JSON',
+                    success: function (data) {
+                        for (var i = 0; i < data.length; i++) {
+                            $("#VehicleId").append($("<option/>", {
+                                text: data[i].VehicleId
+                            }));
+                        }
+                    }
+                });
+            }
+
+            //Checking if the are vehicles available to rent
+            $("#VehicleId").change(function () {
+                CheckAvailable();
+            });
+
+            function CheckAvailable() {
+                $.ajax({
+                    type: "POST",
+                    url: '/Rental/CheckAvailable?VehicleName=' + $("#VehicleId").val(),
+                    dataType: 'JSON',
+                    success: function (data) {
+                        var available = data;
+
+                        if (available == "Available") {
+                            $("#clientId").removeAttr("disabled");
+                            $("#clientName").removeAttr("disabled");
+                            $("#driverId").removeAttr("disabled");
+                            $("#pickUpDate").removeAttr("disabled");
+                            $("#dropUpDate").removeAttr("disabled");
+                            $("#price").removeAttr("disabled");
+                        } else {
+                            $("#clientId").attr("disabled", "disabled");
+                            $("#clientName").attr("disabled", "disabled");
+                            $("#driverId").attr("disabled", "disabled");
+                            $("#pickUpDate").attr("disabled", "disabled");
+                            $("#dropUpDate").attr("disabled", "disabled");
+                            $("#price").attr("disabled", "disabled");
+                        }
+                    }
+                });
+            }
+
+            // get list of drivers
+            function getDrivers() {
+                $.ajax({
+                    type: "GET",
+                    url: '/Rental/GetDrivers',
+                    dataType: 'JSON',
+                    success: function (data) {
+                        for (var i = 0; i < data.length; i++) {
+                            $("#driverId").append($("<option/>", {
+                                text: data[i].FirstName
+                            }));
+                        }
+                    }
+                });
+            }
+             // get list of clients
+            function getClients() {
+                $("#clientId").keyup(function (e) {
+                    $.ajax({
+                        type: "POST",
+                        url: '/Rental/GetClientById?id=' + $("#clientId").val(),
+                        dataType: 'JSON',
+                        success: function (data) {
+                            $("#clientName").val(data)
+                        }
+                    });
+                })
+            }
+        </script>
+
+    }
